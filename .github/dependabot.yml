@@ -8,7 +8,7 @@ updates:
   - package-ecosystem: "pip" # See documentation for possible values
     directory: "/authn-service" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "daily"
     assignees:
       - "coveros-phil"
     reviewers:
