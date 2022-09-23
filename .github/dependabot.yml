@@ -15,3 +15,5 @@ updates:
       - "coveros-phil"
     labels:
       - "triage-required"
+    commit-message:
+      prefix: "pip"
