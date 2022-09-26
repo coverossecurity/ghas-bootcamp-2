@@ -55,7 +55,7 @@ jobs:
     - name: Setup Java Version
       uses: actions/setup-java@v3.5.1
       with:
-        java-version: 15
+        java-version: 16
         distribution: 'microsoft'
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
