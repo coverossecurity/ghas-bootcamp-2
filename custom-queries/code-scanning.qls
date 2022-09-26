@@ -9,4 +9,4 @@
   from: codeql-go
 - exclude:
   id:
-  - java/spring-disabled-csrf-protection
+    - java/spring-disabled-csrf-protection
