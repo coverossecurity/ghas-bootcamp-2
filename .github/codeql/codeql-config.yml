@@ -1,3 +1,6 @@
 name: "CodeQL Config Thing"
+
+disable-default-queries: true
+
 queries:
-  - uses: security-and-quality
+  - uses: ./custom-queries/code-scanning.qls
