@@ -9,4 +9,4 @@
   from: codeql-go
 - exclude:
     id:
-    - <insert rule id of false positive>
+    - java/deprecated-call
