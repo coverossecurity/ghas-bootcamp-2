@@ -3,7 +3,9 @@ name: "CodeQL Config Thing"
 disable-default-queries: true
 
 queries:
+  - uses: security-and-quality
   - uses: ./custom-queries/code-scanning.qls
+  - uses: ./custom-queries/go/jwt.ql
 
 paths-ignore:
   - '**/test/**'
