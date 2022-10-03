@@ -39,6 +39,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      
+    - name: Install Node Modules
+      run: npm install
 
     - name: CycloneDX Node.js Generate SBOM
       uses: CycloneDX/gh-node-module-generatebom@b5753d516608ed84f7a40eb19b7687b5828b9b2d
