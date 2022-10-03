@@ -21,8 +21,8 @@ on:
     - cron: '28 8 * * 5'
 
 jobs:
-  analyze:
-    name: Generate SBOMs
+  NodeJs:
+    name: Generate Javacript SBOM
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -32,34 +32,59 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'go', 'javascript' ]
+        language: [ 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      
-    - if: matrix.language == 'javascript'
-      name: Install Node Modules
+
+    - name: Install Node Modules
       run: npm install
       working-directory: ./frontend
-    - if: matrix.language == 'javascript'
-      name: CycloneDX Node.js Generate SBOM
+
+    - name: CycloneDX Node.js Generate SBOM
       uses: CycloneDX/gh-node-module-generatebom@b5753d516608ed84f7a40eb19b7687b5828b9b2d
       with:
         path: ./frontend
-        output: ./${{ matrix.language }}SBOM.xml
-    - if: matrix.language == 'go'
-      name: CycloneDX GoMod Generate SBOM
+        output: ./bom.xml
+    
+    - name: Upload SBOM
+      uses: actions/upload-artifact@v3
+      with:
+        name: NodeJsSBOM
+        path: ./bom.xml
+        if-no-files-found: error
+        
+  Go:
+    name: Generate Go SBOM
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'go' ]
+        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: CycloneDX GoMod Generate SBOM
       uses: CycloneDX/gh-gomod-generate-sbom@d4aee0cf5133055dbd98899978246c10c18c440f
       with:
         version: v1
-        args: mod -licenses -output ${{ matrix.language }}SBOM.xml
+        args: mod -licenses -output bom.xml
         
-    - name: Upload ${{ matrix.language }} SBOM
+    - name: Upload SBOM
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.language }}SBOM
-        path: ./${{ matrix.language }}SBOM.xml
+        name: GoSBOM
+        path: ./bom.xml
         if-no-files-found: error
