@@ -48,3 +48,10 @@ jobs:
       uses: CycloneDX/gh-node-module-generatebom@b5753d516608ed84f7a40eb19b7687b5828b9b2d
       with:
         path: ./frontend
+        output: ./nodejsSBOM.xml
+        
+    - uses: actions/upload-artifact@v3
+      with:
+        name: nodejsSBOM
+        path: ./nodejsSBOM.xml
+        if-no-files-found: error
