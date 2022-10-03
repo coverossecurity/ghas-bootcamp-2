@@ -22,7 +22,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze
+    name: Generate SBOMs
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -40,7 +40,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Generate SBOM
+    - name: CycloneDX Node.js Generate SBOM
       uses: CycloneDX/gh-node-module-generatebom@b5753d516608ed84f7a40eb19b7687b5828b9b2d
       with:
         path: ./frontend
