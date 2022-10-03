@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'go', 'javascript', 'python' ]
+        language: [ 'go', 'javascript' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
@@ -40,32 +40,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       
+    - if: matrix.language == 'javascript'
     - name: Install Node Modules
       run: npm install
       working-directory: ./frontend
-
+    - if: matrix.language == 'javascript'
     - name: CycloneDX Node.js Generate SBOM
       uses: CycloneDX/gh-node-module-generatebom@b5753d516608ed84f7a40eb19b7687b5828b9b2d
       with:
         path: ./frontend
-        output: ./nodejsSBOM.xml
-        
-    - name: Upload Node.js SBOM
-      uses: actions/upload-artifact@v3
-      with:
-        name: nodejsSBOM
-        path: ./nodejsSBOM.xml
-        if-no-files-found: error
-        
+        output: ./${{ matrix.language }}SBOM.xml
+    - if: matrix.language == 'go'
     - name: CycloneDX GoMod Generate SBOM
       uses: CycloneDX/gh-gomod-generate-sbom@d4aee0cf5133055dbd98899978246c10c18c440f
       with:
         version: v1
-        args: mod -licenses -output gomodSBOM.xml
+        args: mod -licenses -output ${{ matrix.language }}SBOM.xml
         
-    - name: Upload GoMOD SBOM
+    - name: Upload ${{ matrix.language }} SBOM
       uses: actions/upload-artifact@v3
       with:
-        name: gomodSBOM
-        path: ./gomodSBOM.xml
+        name: ${{ matrix.language }}SBOM
+        path: ./${{ matrix.language }}SBOM.xml
         if-no-files-found: error
