@@ -118,8 +118,8 @@ jobs:
     - name: CycloneDX Python Generate SBOM
       uses: CycloneDX/gh-python-generate-sbom@v1.0.0
       with:
-        i: ./authn-service/requirements.txt
-        o: ./pythonsbom.xml
+        input: ./authn-service
+        output: ./pythonsbom.xml
         
     - name: Upload SBOM
       uses: actions/upload-artifact@v3
