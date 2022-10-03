@@ -122,7 +122,7 @@ jobs:
 #         output: ./pythonsbom.xml
 
     - name: CycloneDX Python Generate SBOM
-      run: python -m pip install cyclonedx-py | cyclonedx-py -i ./authn-service/requirements.txt -o ./pythonsbom.xml -r
+      run: pip install cyclonedx-bom | cyclonedx-py -i ./authn-service/requirements.txt -o ./pythonsbom.xml -r
         
     - name: Upload SBOM
       uses: actions/upload-artifact@v3
