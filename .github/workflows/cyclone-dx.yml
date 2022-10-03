@@ -88,3 +88,35 @@ jobs:
         name: GoSBOM
         path: ./gosbom.xml
         if-no-files-found: error
+        
+  Python:
+    name: Generate Python SBOM
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
+        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: CycloneDX Python Generate SBOM
+      uses: CycloneDX/gh-python-generate-sbom@a5d95c4ecc255a902649753ab7f2fdd9ef7ec992
+      with:
+        input: ./authn-service/requirements.txt
+        output: ./pythonsbom.xml
+        
+    - name: Upload SBOM
+      uses: actions/upload-artifact@v3
+      with:
+        name: PythonSBOM
+        path: ./pythonsbom.xml
+        if-no-files-found: error
