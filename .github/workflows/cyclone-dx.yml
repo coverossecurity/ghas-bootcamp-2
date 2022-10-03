@@ -48,13 +48,13 @@ jobs:
       uses: CycloneDX/gh-node-module-generatebom@b5753d516608ed84f7a40eb19b7687b5828b9b2d
       with:
         path: ./frontend
-        output: ./bom.xml
+        output: ./nodejssbom.xml
     
     - name: Upload SBOM
       uses: actions/upload-artifact@v3
       with:
         name: NodeJsSBOM
-        path: ./bom.xml
+        path: ./nodejssbom.xml
         if-no-files-found: error
         
   Go:
@@ -80,11 +80,11 @@ jobs:
       uses: CycloneDX/gh-gomod-generate-sbom@d4aee0cf5133055dbd98899978246c10c18c440f
       with:
         version: v1
-        args: mod -licenses -output bom.xml ./gallery-service
+        args: mod -licenses -output gosbom.xml ./gallery-service
         
     - name: Upload SBOM
       uses: actions/upload-artifact@v3
       with:
         name: GoSBOM
-        path: ./bom.xml
+        path: ./gosbom.xml
         if-no-files-found: error
