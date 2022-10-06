@@ -4,7 +4,6 @@ import java.util.UUID;
 import java.util.Arrays;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.DataInputStream;
 import java.io.OutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
@@ -42,10 +41,8 @@ public class BlobController {
     private String[] allowedContentTypes;
 
     private Blob deserializeBlob(InputStream inputStream) throws IOException, ClassNotFoundException{
-//         ObjectInputStream in = new ObjectInputStream(inputStream);
-        DataInputStream in = new DataInputStream(inputStream);
-//         Blob b = (Blob)in.readObject();
-        Blob b = new Blob(in.readInt());
+        ObjectInputStream in = new ObjectInputStream(inputStream);
+        Blob b = (Blob)in.readObject();
         in.close();
         return b;
     }
