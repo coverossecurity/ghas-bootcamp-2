@@ -44,7 +44,8 @@ public class BlobController {
     private Blob deserializeBlob(InputStream inputStream) throws IOException, ClassNotFoundException{
 //         ObjectInputStream in = new ObjectInputStream(inputStream);
         DataInputStream in = new DataInputStream(inputStream);
-        Blob b = (Blob)in.readObject();
+//         Blob b = (Blob)in.readObject();
+        Blob b = new Blob(in.readInt());
         in.close();
         return b;
     }
