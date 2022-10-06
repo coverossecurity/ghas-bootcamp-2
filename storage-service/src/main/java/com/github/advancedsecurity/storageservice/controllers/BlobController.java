@@ -40,12 +40,7 @@ public class BlobController {
     @Value("${blob.allowed-content-types}")
     private String[] allowedContentTypes;
 
-    private Blob deserializeBlob(InputStream inputStream) throws IOException, ClassNotFoundException{
-        ObjectInputStream in = new ObjectInputStream(inputStream);
-        Blob b = (Blob)in.readObject();
-        in.close();
-        return b;
-    }
+    
 
     @GetMapping("/blob/{id}")
     public Blob get(@PathVariable UUID id, JwtAuthenticationToken token) {
