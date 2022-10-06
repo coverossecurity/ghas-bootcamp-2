@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.Arrays;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.DataInputStream;
 import java.io.OutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
