@@ -6,7 +6,7 @@ cryptography==3.3.2
 entrypoints==0.3
 Flask==1.1.2
 Flask-Cors==3.0.9
-idna==2.10
+idna==3.4
 django-two-factor-auth==1.14.0
 itsdangerous==2.1.2
 Jinja2==2.11.3
